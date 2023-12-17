@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { StudentModel, TGuardian, TLocalGuardian, TUserName } from './student.interface';
+import {  TGuardian, TLocalGuardian, TStudent, TUserName } from './student.interface';
 
 
 
@@ -7,16 +7,16 @@ const userNameSchema = new Schema<TUserName>({
   firstName: {
     type: String,
     required: true,
-    trim: true,
-    maxlength: [20,'20 word er beshi dis na'],
-    minlength:[4,'4 tar kom dis na'],
-    validate: {
-      validator:function(value : string){
-        const firstName= value.charAt(0).toUpperCase() + value.slice(1);
-        return firstName === value;
-      },
-      message: '{VALUE} IS NOT IN CAPITALIZE FORMAT'
-    }
+    // trim: true,
+    // maxlength: [20,'20 word er beshi dis na'],
+    // minlength:[4,'4 tar kom dis na'],
+    // validate: {
+    //   validator:function(value : string){
+    //     const firstName= value.charAt(0).toUpperCase() + value.slice(1);
+    //     return firstName === value;
+    //   },
+    //   message: '{VALUE} IS NOT IN CAPITALIZE FORMAT'
+    // }
   },
   middleName: {
     type: String,
@@ -77,7 +77,7 @@ const localGuardianSChema = new Schema<TLocalGuardian>({
   },
 });
 
-const studentSchema = new Schema<StudentModel>({
+const studentSchema = new Schema<TStudent>({
   id: { 
     type: String,
     required: true,
@@ -154,3 +154,5 @@ const studentSchema = new Schema<StudentModel>({
 //     virtuals: true,
 //   },
 });
+
+const Student = model <TStudent>('Student',studentSchema)
