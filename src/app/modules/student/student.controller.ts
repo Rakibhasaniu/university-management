@@ -22,14 +22,26 @@ const getAllStudent = async (req: Request, res: Response) => {
     res.status(200).json({
       success: true,
       message: 'Student Getting Successfully',
-      dada: result
+      data: result
     })
   } catch (err) {
     console.log(err);
   }
 }
+const getSingleStudent = async (req: Request, res: Response) => {
+  const {studentId}  = req.params; 
+  const result = await StudentService.getSingleStudent(studentId)
+
+  res.status(200).json({
+    success: true,
+    message: "Single Student Getting Successfully",
+    data: result
+  })
+}
 
 export const StudentController = {
   createStudent,
   getAllStudent,
+  getSingleStudent,
+  
 }
