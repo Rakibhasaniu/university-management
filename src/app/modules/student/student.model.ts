@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
 import {  TGuardian, TLocalGuardian, TStudent, TUserName } from './student.interface';
-import bcrypt  from 'bcrypt'
-import config from '../../config';
+// import bcrypt  from 'bcrypt'
+// import config from '../../config';
 
 
 
@@ -158,11 +158,15 @@ const studentSchema = new Schema<TStudent>({
 
 });
 
-studentSchema.pre('save', async function(){
-  // eslint-disable-next-line @typescript-eslint/no-this-alias
-  const user = this;
-  user.password = bcrypt.hash(this.password,Number(config.bcrypt_salt_round))
-})
+// studentSchema.pre('save', async function(){
+//   // eslint-disable-next-line @typescript-eslint/no-this-alias
+//   const user = this;
+//   user.password = bcrypt.hash(this.password,Number(config.bcrypt_salt_round))
+// })
+// studentSchema.post('save', function(doc, next){
+//   doc.password='';
+//   next()
+// })
 
 
 
