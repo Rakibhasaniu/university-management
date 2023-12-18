@@ -7,7 +7,7 @@ import {  TGuardian, TLocalGuardian, TStudent, TUserName } from './student.inter
 const userNameSchema = new Schema<TUserName>({
   firstName: {
     type: String,
-    required: true,
+    required: [true,' First Name is Required'],
     // trim: true,
     // maxlength: [20,'20 word er beshi dis na'],
     // minlength:[4,'4 tar kom dis na'],
@@ -24,7 +24,7 @@ const userNameSchema = new Schema<TUserName>({
   },
   lastName: {
     type: String, 
-    required: true,
+    required: [true,'Last Name is Required'],
     // validate: {
     //   validator: (value : string) => validator.isAlpha(value),
     //   message:'{VALUE} IS NOT VALID' 
@@ -35,7 +35,7 @@ const userNameSchema = new Schema<TUserName>({
 const guardianSchema = new Schema<TGuardian>({
   fatherName: {
     type: String,
-    required: true,
+    required: [true,' Father Name is Required'],
   },
   fatherOccupation: {
     type: String,
@@ -93,7 +93,7 @@ const studentSchema = new Schema<TStudent>({
    },
   name: {
     type: userNameSchema,
-    required: [true,'First Name is Required'],
+    required: [true,'Name is Required'],
   },
   gender:{
     type: String,
@@ -132,7 +132,10 @@ const studentSchema = new Schema<TStudent>({
     type: String,
     required: true,
   },
-  guardian: guardianSchema,
+  guardian: {
+    type: guardianSchema,
+    required: true
+  },
   localGuardian: {
     type: localGuardianSChema,
     required: true,
