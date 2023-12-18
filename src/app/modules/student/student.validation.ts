@@ -4,10 +4,7 @@ const userNameSchema = z.object({
   firstName: z
     .string()
     .min(1)
-    .max(20)
-    .refine((value) => /^[A-Z]/.test(value), {
-      message: 'First Name must start with a capital letter',
-    }),
+    .max(20),
   middleName: z.string(),
   lastName: z.string(),
 });

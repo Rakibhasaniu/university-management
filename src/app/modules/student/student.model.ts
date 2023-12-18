@@ -1,6 +1,7 @@
 import { Schema, model } from 'mongoose';
 import {  TGuardian, TLocalGuardian, TStudent, TUserName } from './student.interface';
-
+import bcrypt  from 'bcrypt'
+import config from '../../config';
 
 
 
@@ -8,9 +9,9 @@ const userNameSchema = new Schema<TUserName>({
   firstName: {
     type: String,
     required: [true,' First Name is Required'],
-    // trim: true,
-    // maxlength: [20,'20 word er beshi dis na'],
-    // minlength:[4,'4 tar kom dis na'],
+    trim: true,
+    maxlength: [20,'20 word er beshi dis na'],
+    minlength:[4,'4 tar kom dis na'],
     // validate: {
     //   validator:function(value : string){
     //     const firstName= value.charAt(0).toUpperCase() + value.slice(1);
@@ -99,7 +100,7 @@ const studentSchema = new Schema<TStudent>({
     type: String,
     enum: {
       values:  ['male', 'female','other'],
-      message: 'uporer 3 tar moddhe 1 ta hbe'
+      message: "The gender field can be one of the following: 'male','female', or 'other'."
     },
     required: true
   },
@@ -156,5 +157,13 @@ const studentSchema = new Schema<TStudent>({
 },{
 
 });
+
+studentSchema.pre('save', async function(){
+  // eslint-disable-next-line @typescript-eslint/no-this-alias
+  const user = this;
+  user.password = bcrypt.hash(this.password,Number(config.bcrypt_salt_round))
+})
+
+
 
 export const StudentModel = model <TStudent>('Student',studentSchema)
