@@ -155,8 +155,18 @@ const studentSchema = new Schema<TStudent>({
     default: false
   }
 },{
-
+  toJSON: {
+    virtuals: true
+  }
 });
+
+//virtual
+studentSchema.virtual('fullName').get(function(){
+
+  return  (
+    `${this.name.firstName} ${this.name.middleName} ${this.name.lastName}`
+  )
+})
 
 // studentSchema.pre('save', async function(){
 //   // eslint-disable-next-line @typescript-eslint/no-this-alias
