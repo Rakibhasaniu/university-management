@@ -3,6 +3,7 @@ import {  TGuardian, TLocalGuardian, TStudent, TUserName } from './student.inter
 
 
 
+
 const userNameSchema = new Schema<TUserName>({
   firstName: {
     type: String,
@@ -150,9 +151,7 @@ const studentSchema = new Schema<TStudent>({
     default: false
   }
 },{
-//   toJSON: {
-//     virtuals: true,
-//   },
+
 });
 
-const Student = model <TStudent>('Student',studentSchema)
+export const StudentModel = model <TStudent>('Student',studentSchema)

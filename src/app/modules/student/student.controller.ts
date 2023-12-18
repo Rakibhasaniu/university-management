@@ -1,6 +1,22 @@
 import { Request, Response } from "express";
+import { StudentService } from "./student.service";
 
 
-const createStudent = (req: Request, res: Response) => {
-  const studentData = req.body;
+const createStudent = async (req: Request, res: Response) => {
+  try{
+    const {student : studentData} = req.body;
+  const result = await StudentService.createStudentIntoDb(studentData)
+  res.status(200).json({
+    success: true,
+    message: 'Student Created Successfully',
+    data: result
+  })
+  } catch (err){
+    console.log(err)
+  }
+}
+
+export const StudentController = {
+  createStudent,
+  
 }
