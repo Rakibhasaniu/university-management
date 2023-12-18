@@ -8,16 +8,16 @@ const userNameSchema = new Schema<TUserName>({
   firstName: {
     type: String,
     required: true,
-    trim: true,
-    maxlength: [20,'20 word er beshi dis na'],
-    minlength:[4,'4 tar kom dis na'],
-    validate: {
-      validator:function(value : string){
-        const firstName= value.charAt(0).toUpperCase() + value.slice(1);
-        return firstName === value;
-      },
-      message: '{VALUE} IS NOT IN CAPITALIZE FORMAT'
-    }
+    // trim: true,
+    // maxlength: [20,'20 word er beshi dis na'],
+    // minlength:[4,'4 tar kom dis na'],
+    // validate: {
+    //   validator:function(value : string){
+    //     const firstName= value.charAt(0).toUpperCase() + value.slice(1);
+    //     return firstName === value;
+    //   },
+    //   message: '{VALUE} IS NOT IN CAPITALIZE FORMAT'
+    // }
   },
   middleName: {
     type: String,
