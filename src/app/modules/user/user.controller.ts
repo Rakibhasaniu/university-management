@@ -1,11 +1,12 @@
 import { UserServices } from "./user.service";
+import { userValidationSchema } from "./user.validation";
 
 const createStudent = async (req: Request, res: Response) => {
     try{
-      const {student : studentData} = req.body;
+      const {password,student : studentData} = req.body;
   
-      const zodParseData = studentValidationSchema.parse(studentData)
-    const result = await UserServices.createStudentIntoDb(zodParseData)
+      // const zodParseData = userValidationSchema.parse(studentData)
+    const result = await UserServices.createStudentIntoDb(password,studentData)
     res.status(200).json({
       success: true,
       message: 'Student Created Successfully',
@@ -18,4 +19,8 @@ const createStudent = async (req: Request, res: Response) => {
         error: err,
       })
     }
+  }
+
+  export const userController = {
+    createStudent,
   }
