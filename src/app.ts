@@ -6,6 +6,7 @@ import express, { Application, NextFunction, Request, Response } from 'express';
 import { StudentRoutes } from './app/modules/student/student.route';
 import { UserRoutes } from './app/modules/user/user.route';
 import globalErrorHandler from './app/middleware/globalErrorhandler';
+import notFound from './app/middleware/notFound';
 
 const app: Application = express();
 
@@ -27,5 +28,6 @@ app.get('/', getAController);
 
 //global error handler
 app.use(globalErrorHandler)
-
+//not found 
+app.use(notFound)
 export default app;
