@@ -91,13 +91,13 @@ const studentSchema = new Schema<TStudent>({
     unique: true,
     ref: 'User',
    },
-  password: { 
-    type: String,
-    required: true,
-    unique: true,
-    maxlength: 30,
-    minlength: 5,
-   },
+  // password: { 
+  //   type: String,
+  //   required: true,
+  //   unique: true,
+  //   maxlength: 30,
+  //   minlength: 5,
+  //  },
   name: {
     type: userNameSchema,
     required: [true,'Name is Required'],
@@ -174,15 +174,15 @@ studentSchema.virtual('fullName').get(function(){
   )
 })
 
-studentSchema.pre('save', async function(){
-  // eslint-disable-next-line @typescript-eslint/no-this-alias
-  const user = this;
-  user.password = await bcrypt.hash(user.password,Number(config.bcrypt_salt_round))
-})
-studentSchema.post('save', function(doc, next){
-  doc.password='';
-  next()
-})
+// studentSchema.pre('save', async function(){
+//   // eslint-disable-next-line @typescript-eslint/no-this-alias
+//   const user = this;
+//   user.password = await bcrypt.hash(user.password,Number(config.bcrypt_salt_round))
+// })
+// studentSchema.post('save', function(doc, next){
+//   doc.password='';
+//   next()
+// })
 
 //query middleware
 studentSchema.pre('find', function(next){

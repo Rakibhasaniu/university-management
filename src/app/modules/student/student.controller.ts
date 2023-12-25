@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { StudentService } from "./student.service";
 
-const getAllStudent = async (req: Request, res: Response) => {
+const getAllStudent = async (req: Request, res: Response, next: NextFunction) => {
   try{
     const result = await StudentService.getAllStudentFromDB()
     res.status(200).json({
@@ -9,15 +9,16 @@ const getAllStudent = async (req: Request, res: Response) => {
       message: 'Student Getting Successfully',
       data: result
     })
-  } catch (err: any) {
-    res.status(500).json({
-      success: false,
-      message: err.message || 'Something Went Wrong',
-      error: err,
-    })
+  } catch (err) {
+    // res.status(500).json({
+    //   success: false,
+    //   message: err.message || 'Something Went Wrong',
+    //   error: err,
+    // })
+    next(err)
   }
 }
-const getSingleStudent = async (req: Request, res: Response) => {
+const getSingleStudent = async (req: Request, res: Response, next: NextFunction) => {
   try{
     const {studentId}  = req.params; 
   const result = await StudentService.getSingleStudent(studentId)
@@ -27,15 +28,16 @@ const getSingleStudent = async (req: Request, res: Response) => {
     message: "Single Student Getting Successfully",
     data: result
   })
-  } catch(err : any){
-    res.status(500).json({
-      success: false,
-      message: err.message || 'Something Went Wrong',
-      error: err,
-    })
+  } catch(err){
+    // res.status(500).json({
+    //   success: false,
+    //   message: err.message || 'Something Went Wrong',
+    //   error: err,
+    // })
+    next(err);
   }
 }
-const deleteStudent = async (req: Request, res: Response) => {
+const deleteStudent = async (req: Request, res: Response, next: NextFunction) => {
   try{
     const {studentId}  = req.params; 
   const result = await StudentService.deleteStudent(studentId)
@@ -45,12 +47,13 @@ const deleteStudent = async (req: Request, res: Response) => {
     message: "Student Deleted Successfully",
     data: result
   })
-  } catch(err : any){
-    res.status(500).json({
-      success: false,
-      message: err.message || 'Something Went Wrong',
-      error: err,
-    })
+  } catch(err){
+    // res.status(500).json({
+    //   success: false,
+    //   message: err.message || 'Something Went Wrong',
+    //   error: err,
+    // })
+    next(err)
   }
 }
 
