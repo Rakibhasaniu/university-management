@@ -1,5 +1,5 @@
 import { UserServices } from "./user.service";
-import { userValidationSchema } from "./user.validation";
+// import { userValidationSchema } from "./user.validation";
 
 const createStudent = async (req: Request, res: Response) => {
     try{
