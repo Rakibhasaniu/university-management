@@ -32,11 +32,11 @@ export const studentValidationSchema = Joi.object({
   password: Joi.string().required().max(30),
   name: userNameSchema.required(),
   gender: Joi.string().valid('male', 'female', 'other').required(),
-  dateOfBirth: Joi.string(),
+  dateOfBirth: Joi.Date().optional,
   email: Joi.string().email().required(),
   contactNo: Joi.string().required(),
   emergencyContactNo: Joi.string().required(),
-  bloogGroup: Joi.string().valid(
+  bloodGroup: Joi.string().valid(
     'A+',
     'A-',
     'B+',

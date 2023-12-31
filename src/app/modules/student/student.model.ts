@@ -1,7 +1,6 @@
 import { Schema, model } from 'mongoose';
 import {  TGuardian, TLocalGuardian, TStudent, TUserName } from './student.interface';
-import bcrypt  from 'bcrypt'
-import config from '../../config';
+
 
 
 
@@ -111,7 +110,7 @@ const studentSchema = new Schema<TStudent>({
     required: true
   },
   dateOfBirth: {
-    type: String,
+    type: Date,
   },
   email: {
     type: String,
