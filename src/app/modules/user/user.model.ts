@@ -6,7 +6,8 @@ import bcrypt  from 'bcrypt'
 const userSchema = new Schema<TUser>({
     id: {
         type: String,
-        require: true
+        require: true,
+        unique: true,
     },
     password: {
         type: String,

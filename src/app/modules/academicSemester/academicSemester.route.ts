@@ -12,7 +12,7 @@ router.post('/create-academic-semester',  validationMiddleware(AcademicValidatio
 router.get('/:semesterId',AcademicSemesterController.getSingleAcademicSemester)
 
 router.patch(
-    '/:courseId',
+    '/:semesterId',
     validationMiddleware(
       AcademicValidation.updateAcademicSemesterValidationSchema,
     ),

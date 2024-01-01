@@ -149,6 +149,10 @@ const studentSchema = new Schema<TStudent>({
   profileImg: {
     type: String,
   },
+  admissionSemester: {
+    type: Schema.Types.ObjectId,
+    ref: 'AcademicSemester',
+  },
   // isActive: {
   //   type: String,
   //   enum: ['active', 'blocked'],
