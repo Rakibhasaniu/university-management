@@ -153,12 +153,11 @@ const studentSchema = new Schema<TStudent>({
     type: Schema.Types.ObjectId,
     ref: 'AcademicSemester',
   },
-  // isActive: {
-  //   type: String,
-  //   enum: ['active', 'blocked'],
-  //   default:'active',
-  //   // required: true
-  // },
+
+  academicDepartment: {
+    type: Schema.Types.ObjectId,
+    ref: 'AcademicDepartment',
+  },
   isDeleted : {
     type: Boolean,
     default: false

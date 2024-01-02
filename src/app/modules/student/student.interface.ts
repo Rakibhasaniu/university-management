@@ -42,6 +42,7 @@ export type TStudent = {
   profileImg?: string;
   admissionSemester: Types.ObjectId;
   // isActive: 'active' | 'blocked';
+  academicDepartment: Types.ObjectId;
   isDeleted: boolean;
 };
 

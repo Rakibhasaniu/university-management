@@ -7,12 +7,22 @@ const createStudentIntoDb = async (student: TStudent) => {
   return result;
 }
 const getAllStudentFromDB = async() => {
-  const result = await StudentModel.find();
+  const result = await StudentModel.find().populate('admissionSemester').populate({
+    path:'academicDepartment',
+    populate:{
+      path:'academicFaculty'
+    }
+  });
   return result;
 }
 
 const getSingleStudent = async(id: string) => {
-  const result = await StudentModel.findOne({id})
+  const result = await StudentModel.findOne({id}).populate('admissionSemester').populate({
+    path:'academicDepartment',
+    populate:{
+      path:'academicFaculty'
+    }
+  })
   return result;
 }
 const deleteStudent = async(id: string) => {
