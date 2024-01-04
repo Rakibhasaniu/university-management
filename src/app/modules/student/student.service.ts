@@ -10,14 +10,41 @@ const createStudentIntoDb = async (student: TStudent) => {
   const result =   await StudentModel.create(student)
   return result;
 }
-const getAllStudentFromDB = async() => {
-  const result = await StudentModel.find().populate('admissionSemester').populate({
+const getAllStudentFromDB = async(query : Record<string, unknown>) => {
+  const queryObj = {...query}
+  const studentSearchableField=['email','name.firstName','presentAddress']
+  let searchTerm='';
+  if(query?.searchTerm){
+    searchTerm=query?.searchTerm as string;
+  }
+  const searchQuery = StudentModel.find({
+    $or:studentSearchableField.map(field => ({
+      [field]:{$regex: searchTerm,$options:'i'}
+    }))
+  })
+  const excludeField = ['searchTerm','sort','limit']
+  excludeField.forEach(el => delete queryObj[el])
+  const filterQuery  =  searchQuery.find(queryObj).populate('admissionSemester').populate({
     path:'academicDepartment',
     populate:{
       path:'academicFaculty'
     }
   });
-  return result;
+
+
+
+  let sort= '-createdAt'
+  if(query.sort){
+    sort = query.sort as string;
+  }
+
+  const sortQuery =  filterQuery.sort(sort);
+  let limit =1;
+  if(query.limit){
+    limit=query.limit ;
+  }
+  const limitQuery = await sortQuery.limit(limit)
+  return limitQuery;
 }
 
 const getSingleStudent = async(id: string) => {
