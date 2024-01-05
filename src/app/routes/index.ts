@@ -38,6 +38,10 @@ const moduleRoutes = [
         path: '/admins',
         route: AdminRoutes,
       },
+      {
+        path: '/courses',
+        route: CourseRoutes,
+      },
 ]
 // router.use('/users', UserRoutes)
 // router.use('/students', StudentRoutes)
