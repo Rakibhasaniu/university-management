@@ -1,8 +1,10 @@
 import express from 'express';
-import { userController } from './user.controller';
 import { createStudentValidationSchema } from '../student/student.validation';
 import validationMiddleware from '../../middleware/validateRequest';
-import validationMiddleware from 'src\app\middleware\validateRequest';
+import { createFacultyValidationSchema } from '../faculty/faculty.validation';
+import { userController } from './user.controller';
+import { createAdminValidationSchema } from '../admin/admin.validation';
+
 
 
 
@@ -14,13 +16,13 @@ router.post('/create-student',validationMiddleware(createStudentValidationSchema
 router.post(
     '/create-faculty',
     validationMiddleware(createFacultyValidationSchema),
-    UserControllers.createFaculty,
+    userController.createFaculty
   );
   
   router.post(
     '/create-admin',
     validationMiddleware(createAdminValidationSchema),
-    UserControllers.createAdmin,
+    userController.createAdmin,
   );
 
 

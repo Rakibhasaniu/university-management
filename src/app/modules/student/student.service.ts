@@ -6,6 +6,7 @@ import { User } from "../user/user.model";
 import httpStatus from "http-status";
 import QueryBuilder from "../../builder/QueryBuilder";
 import { studentSearchableFields } from "./student.constant";
+// import { User } from 'src\app\modules\user\user.model';
 
 
 const createStudentIntoDb = async (student: TStudent) => {
@@ -72,7 +73,7 @@ const getAllStudentFromDB = async(query : Record<string, unknown>) => {
 }
 
 const getSingleStudent = async(id: string) => {
-  const result = await StudentModel.findOne({id}).populate('admissionSemester').populate({
+  const result = await StudentModel.findById(id).populate('admissionSemester').populate({
     path:'academicDepartment',
     populate:{
       path:'academicFaculty'
@@ -101,7 +102,7 @@ const updateStudentIntoDB = async(id: string, payLoad : Partial<TStudent>) => {
     }
   }
 
-  const result = await StudentModel.findOneAndUpdate({id}, modifiedUpdatedData,{new:true, runValidators: true})
+  const result = await StudentModel.findByIdAndUpdate(id, modifiedUpdatedData,{new:true, runValidators: true})
   return result;
 }
 const deleteStudent = async(id: string) => {
@@ -109,11 +110,12 @@ const deleteStudent = async(id: string) => {
 
   try{
     session.startTransaction()
-    const deletedStudent = await StudentModel.findOneAndUpdate({id},{isDeleted: true},{new: true ,session})
+    const deletedStudent = await StudentModel.findByIdAndUpdate(id,{isDeleted: true},{new: true ,session})
     if(!deletedStudent){
       throw new AppError(httpStatus.BAD_REQUEST,"Failed to delete student")
     }
-    const deleteUser = await User.findOneAndUpdate({id},{isDeleted: true},{new: true ,session})
+    const userId = deleteStudent.user;
+    const deleteUser = await User.findByIdAndUpdate(userId,{isDeleted: true},{new: true ,session})
     if(!deleteUser){
       throw new AppError(httpStatus.BAD_REQUEST,'Failed to delete user')
     }
