@@ -77,12 +77,13 @@ const deleteSemesterRegistration = catchAsync(
     const { id } = req.params;
     const result =
       await SemesterRegistrationService.deleteSemesterRegistrationFromDB(id);
-
+      console.log(result)
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
       message: 'Semester Registration is updated successfully',
       data: result,
+      
     });
   },
 );
