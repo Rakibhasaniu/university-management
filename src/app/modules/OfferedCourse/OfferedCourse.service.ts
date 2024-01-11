@@ -9,6 +9,9 @@ import { TOfferedCourse } from './OfferedCourse.interface';
 import { OfferedCourse } from './OfferedCourse.model';
 // import { hasTimeConflict } from './OfferedCourse.utils';
 import AppError from '../../error/AppError';
+import { Faculty } from '../faculty/faculty.model';
+import { Course } from '../course/course.model';
+import { hasTimeConflict } from './OfferedCourse.utils.';
 
 const createOfferedCourseIntoDB = async (payload: TOfferedCourse) => {
   const {
